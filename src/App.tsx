@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
+import Header from "./shared/components/navigation/header";
+import { theme } from "./shared/theme";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function App() {
+  const queryClient = new QueryClient();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppContainer />
+      </ThemeProvider>
+      {process.env.NODE_ENV === "development" ? (
+        <ReactQueryDevtools initialIsOpen={false} />
+      ) : null}
+    </QueryClientProvider>
   );
 }
 
 export default App;
+
+const AppContainer = () => {
+  const theme = useTheme();
+  return (
+    <Container maxWidth="sm">
+      <Box
+        sx={{
+          bgcolor:
+            theme.palette.mode === "dark" ? theme.palette.info["main"] : "#fff",
+        }}
+      >
+        <Header />
+        {/* Body */}
+      </Box>
+    </Container>
+  );
+};
