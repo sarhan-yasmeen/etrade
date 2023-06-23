@@ -4,8 +4,8 @@ export const theme = createTheme({
   // palette values for light mode
   palette: {
     primary: {
-      main: "rgb(239, 243, 244)",
-      contrastText: "rgb(15, 20, 25)",
+      main: "rgb(255, 73, 124)",
+      contrastText: "rgb(248, 215, 217)",
     },
     secondary: {
       main: "rgb(120, 86, 255)",
