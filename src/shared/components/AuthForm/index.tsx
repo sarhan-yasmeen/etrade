@@ -7,11 +7,14 @@ function AuthForm({
     title,
     subTitle,
     inputsArr,
+    subText,
+    ButtonText,
+    label,
     handleSubmitFunc,
 }: AuthFormProps) {
     return (
         <Box width={"66.6666%"} display={"flex"} flexDirection={"column"}>
-            <AuthHeader label="Sign in" subText={"Already a member?"} />
+            <AuthHeader label={label} subText={subText} />
             <form className="sign-in-form" onSubmit={handleSubmitFunc}>
                 <Box>
                     <Box gap={3} display={"flex"} flexDirection={"column"} mb={"100px"}>
@@ -23,7 +26,7 @@ function AuthForm({
                         </Typography>
                     </Box>
                     <Box
-                        gap={3}
+                        gap={4}
                         justifyContent={"space-evenly"}
                         display={"flex"}
                         flexDirection={"column"}
@@ -44,7 +47,8 @@ function AuthForm({
                             color="secondary"
                             sx={{ width: "50%", padding: "12px" }}
                         >
-                            {"create account"}
+                            {ButtonText
+                            }
                         </Button>
                     </Box>
                 </Box>

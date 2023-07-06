@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+}
+
+.sign-up-sidebar {
+  width: 33.333333%;
+  max-height: 105vh;
+  background-size: cover;
+  background-image: url("https://new.axilthemes.com/demo/template/etrade/assets/images/bg/bg-image-10.jpg");
+
+  background-color: rgb(248, 215, 217);
+  background-position: center center;
+  height: 103vh;
+  border: rgb(248, 215, 217) 300px;
+  border-style: solid;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 50px 0 0 0;
+  background-repeat: no-repeat;
+}
+
+.sign-in-sidebar {
+  width: 33.333333%;
+  max-height: 105vh;
+  background-size: cover;
+  background-image: url("https://new.axilthemes.com/demo/template/etrade/assets/images/bg/bg-image-9.jpg");
+  background-color: #bddbff;
+  background-position: center center;
+  height: 103vh;
+  border: #bddbff 300px;
+  border-style: solid;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 50px 0 0 0;
+  background-repeat: no-repeat;
+}
+
+.sign-in-form {
+  background-color: #fff;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 80px;
+  margin-left: 250px;
+  width: 40%;
+}

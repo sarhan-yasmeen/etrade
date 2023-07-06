@@ -1,8 +1,11 @@
-import React, { createContext, useContext, useState } from 'react';
-import { useHttp } from './Http/useHttp';
+import React, { createContext, useContext, useState } from "react";
+
+import { useHttp } from "./Http/useHttp";
+import CustomSnackBar from "./CustomSnackbar";
 
 interface User {
-  name: string;
+  name?: string;
+  password: string;
   email: string;
 }
 
@@ -11,53 +14,64 @@ interface AuthContextProps {
   user: User | null;
   login: (userCredentials: User) => void;
   logout: () => void;
+  register: (userCredentials: User) => void;
 }
 
-// Create the authentication context
-export const AuthContext = createContext<AuthContextProps | any>(undefined);
+export const AuthContext = createContext<AuthContextProps | null>(null);
 
-// Create a provider component
-export const AuthProvider: React.FC = (children: any) => {
-  // Define the state variables
-  const http = useHttp()
+export const AuthProvider: React.FC<any> = ({ children }) => {
+  const http = useHttp();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [open, setOpen] = React.useState(false);
+  const [error, setError] = useState<undefined | string>(undefined)
 
-  // Function to handle login
-  const login = async (userCredentials: User) => {
-    // Perform your authentication logic here
 
+  const register = async (userCredentials: User) => {
     try {
-      await http.post('/signUp', userCredentials)
+      await http.post("/api/v1/auth/signup", userCredentials);
     } catch (err: any) {
       //
+      setError(err.response.data?.msg)
+      setOpen(true)
+    }
+    setIsLoggedIn(true);
+    setUser(userCredentials);
+  };
+  const login = async (userCredentials: User) => {
+    try {
+      await http.post("/api/v1/auth/signin", userCredentials);
+
+      await http.get("/me");
+    } catch (err: any) {
+      setError(err.response.data?.msg)
+      setOpen(true)
+
     }
 
-
-    // Set the isLoggedIn state to true and store the user data
     setIsLoggedIn(true);
     setUser(userCredentials);
   };
 
-  // Function to handle logout
   const logout = () => {
-    // Perform your logout logic here
-    // Set the isLoggedIn state to false and clear the user data
     setIsLoggedIn(false);
     setUser(null);
   };
 
-  // Define the context value
   const authContextValue: AuthContextProps = {
     isLoggedIn,
     user,
+    register,
     login,
     logout,
   };
 
-  // Provide the context value to its children
-  return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authContextValue}>
+      <CustomSnackBar message={error} open={open} severity="error" />
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-
-export const useAuth = () => useContext(AuthContext)
+export const useAuth = () => useContext(AuthContext);

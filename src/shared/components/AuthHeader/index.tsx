@@ -21,7 +21,7 @@ function AuthHeader({ label, subText }: Props) {
       <Button
         sx={{
           padding: "17px",
-          width: "130px",
+          width: "150px",
           borderRadius: '7%',
           color: "white",
           height: "60px",
